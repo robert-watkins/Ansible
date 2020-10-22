@@ -1,6 +1,7 @@
 ---
 - name: Update Usernames to All Caps convention
   hosts: all
+  become: yes
   remote_user: merlin
   vars: 
     users: 
