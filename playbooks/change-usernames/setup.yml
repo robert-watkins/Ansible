@@ -48,7 +48,7 @@
     
   - name: delete old home dirs
     file: "/home/{{ item.value.old_name }}"
-      state: deleted
+      state: absent
     ignore_errors: yes
     loop: "{{ lookup('dict', users) }}"
 
