@@ -8,19 +8,19 @@
         new_name: rwatkins
         ssh_key: #path or key
         
-      admin_mkrajewski:
+      admin_kraj:
         new_name: kraj
         ssh_key: #path or key
         
-      admin_dedmonds:
+      admin_davis:
         new_name: davis
         ssh_key: #path or key
         
-      admin_kedgington:
+      admin_kevin:
         new_name: kevin
         ssh_key: #path or key
         
-      admin_jorona:
+      admin_jackie:
         new_name: jackie
         ssh_key: #path or key
       
