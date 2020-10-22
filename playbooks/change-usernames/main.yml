@@ -1,1 +1,38 @@
 ---
+- name: Update Usernames to All Caps convention
+  hosts: all
+  remote_user: merlin
+  vars: 
+    users: 
+      admin_rwatkins:
+        new_name: rwatkins
+        ssh_key: #path or key
+        
+      admin_mkrajewski:
+        new_name: kraj
+        ssh_key: #path or key
+        
+      admin_dedmonds:
+        new_name: davis
+        ssh_key: #path or key
+        
+      admin_kedgington:
+        new_name: kevin
+        ssh_key: #path or key
+        
+      admin_jorona:
+        new_name: jackie
+        ssh_key: #path or key
+      
+    
+  
+  tasks:
+  - name: Get list of current users with admin_
+    shell: cat /etc/passwd | awk -F ':' '{print $1}' | grep admin_*
+    register: admins
+    
+  - name: Clean admins
+    shell: ls
+    
+  - name: Rename Users
+    
