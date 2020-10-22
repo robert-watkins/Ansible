@@ -4,23 +4,28 @@
   remote_user: merlin
   vars: 
     users: 
-      admin_rwatkins:
+      robert:
+        old_name: admin_rwatkins
         new_name: rwatkins
         ssh_key: #path or key
         
-      admin_kraj:
+      kraj:
+        old_name: admin_kraj
         new_name: kraj
         ssh_key: #path or key
         
-      admin_davis:
+      davis:  
+        old_name: admin_davis
         new_name: davis
         ssh_key: #path or key
         
-      admin_kevin:
+      kevin:  
+        old_name: admin_kevin
         new_name: kevin
         ssh_key: #path or key
-        
-      admin_jackie:
+      
+      jackie:  
+        old_name: admin_jackie
         new_name: jackie
         ssh_key: #path or key
       
@@ -28,4 +33,8 @@
   
   tasks:
   - name: Create Users
-    
+    user:
+      name: {{ item.value.old_name }}
+      state: present
+      
+    loop: "{{ lookup('dict', users) }}"
