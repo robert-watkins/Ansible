@@ -1,47 +1,74 @@
 ---
 - name: Update Usernames to All Caps convention
   hosts: all
-  remote_user: merlin
+  become: yes
   vars: 
     users: 
-      admin_rwatkins:
+      robert:
+        old_name: admin_rwatkins
         new_name: rwatkins
-        ssh_key: #path or key
+        ssh: true
+        ssh_key: # ansible test key
         
-      admin_kraj:
+      kraj:
+        old_name: admin_kraj
         new_name: kraj
-        ssh_key: #path or key
+        ssh: true
+        ssh_key: # ansible test key
         
-      admin_davis:
+      davis:  
+        old_name: admin_davis
         new_name: davis
-        ssh_key: #path or key
+        ssh: true
+        ssh_key: # ansible test key
         
-      admin_kevin:
+      kevin:  
+        old_name: admin_kevin
         new_name: kevin
-        ssh_key: #path or key
-        
-      admin_jackie:
+        ssh: false
+        ssh_key: # ansible test key
+      
+      jackie:  
+        old_name: admin_jackie
         new_name: jackie
-        ssh_key: #path or key
+        ssh: false
+        ssh_key: # ansible test key
       
     
   
   tasks:
-  - name: Get list of current users with admin_
-      shell: cat /etc/passwd | awk -F ':' '{print $1}' | grep admin_*
-    register: admins
+  #- name: Get list of current users with admin_
+  #    shell: cat /etc/passwd | awk -F ':' '{print $1}' | grep admin_*
+  #  register: admins
+  #  
+  #- name: Check if admin_s are logged in
+  #    shell: w | grep admin_* | awk something
+  #  register: logged_in_admins
+  #  
+  #- name: remove them from list if they are logged in
+  #  set_fact: 
+  #    admins: something? 
+  #  
+  - name: Make changes
+    block:
+      - name: Move home directory
+          user:
+            name: "{{ item.value.old_name }}"
+            home: "/home/{{ item.value.new_name }}"
+            move_home: yes
+          #loop: "{{ lookup('dict', users) }}"
+        
+      - name: Rename Users
+          command: usermod --login "{{ item.value.new_name }}" "{{ item.value.old_name }}"
+        #loop: "{{ lookup('dict', users) }}"
     
-  - name: Check if admin_s are logged in
-      shell: w | grep admin_* | awk something
-    register: logged_in_admins
+      - name: Install ssh key for root access
+          authorized_key:
+            user: root
+            key: "{{ item.value.ssh_key }}"
+            state: present
+          remote_user: "{{ item.value.new_name }}"
     
-  - name: remove them from list if they are logged in
-    set_fact: 
-      admins: something? 
-    
-  - name: Rename Users
-      shell: usermod -l "{{ item.value.new_name }}" "{{ item.value.old_name }}"
     loop: "{{ lookup('dict', users) }}"
     
-  - name: Rename Home Folder
-      shell
+    

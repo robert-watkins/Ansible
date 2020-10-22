@@ -1,8 +1,7 @@
 ---
 - name: Update Usernames to All Caps convention
   hosts: all
-  #become: yes
-  
+  become: yes
   vars: 
     users: 
       robert:
@@ -33,23 +32,36 @@
     
   
   tasks:
-  - name: Create Users
+  - name: Remove all caps if present
     user:
       name: "{{ item.value.new_name }}"
       state: absent
       
     loop: "{{ lookup('dict', users) }}"
     
-  - name: Create Users
+  - name: remove old users if present
     user:
       name: "{{ item.value.old_name }}"
       state: absent
       
     loop: "{{ lookup('dict', users) }}"
+    
+  - name: delete old home dirs
+    file: "/home/{{ item.value.old_name }}"
+      state: deleted
+    loop: "{{ lookup('dict', users) }}"
+
+  - name: delete new home dirs
+    file: "/home/{{ item.value.new_name }}"
+      state: deleted
+    loop: "{{ lookup('dict', users) }}"
   
-  - name: Create Users
+  - name: Create old Users
     user:
       name: "{{ item.value.old_name }}"
       state: present
       
     loop: "{{ lookup('dict', users) }}"
+    
+    
+    
