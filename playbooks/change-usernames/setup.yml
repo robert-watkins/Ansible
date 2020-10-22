@@ -1,0 +1,31 @@
+---
+- name: Update Usernames to All Caps convention
+  hosts: all
+  remote_user: merlin
+  vars: 
+    users: 
+      admin_rwatkins:
+        new_name: rwatkins
+        ssh_key: #path or key
+        
+      admin_kraj:
+        new_name: kraj
+        ssh_key: #path or key
+        
+      admin_davis:
+        new_name: davis
+        ssh_key: #path or key
+        
+      admin_kevin:
+        new_name: kevin
+        ssh_key: #path or key
+        
+      admin_jackie:
+        new_name: jackie
+        ssh_key: #path or key
+      
+    
+  
+  tasks:
+  - name: Create Users
+    
