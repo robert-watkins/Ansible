@@ -35,6 +35,20 @@
   tasks:
   - name: Create Users
     user:
+      name: "{{ item.value.new_name }}"
+      state: absent
+      
+    loop: "{{ lookup('dict', users) }}"
+    
+  - name: Create Users
+    user:
+      name: "{{ item.value.old_name }}"
+      state: absent
+      
+    loop: "{{ lookup('dict', users) }}"
+  
+  - name: Create Users
+    user:
       name: "{{ item.value.old_name }}"
       state: present
       
