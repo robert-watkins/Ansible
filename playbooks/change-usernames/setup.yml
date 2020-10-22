@@ -36,31 +36,33 @@
     user:
       name: "{{ item.value.new_name }}"
       state: absent
-      
+    ignore_errors: yes
     loop: "{{ lookup('dict', users) }}"
     
   - name: remove old users if present
     user:
       name: "{{ item.value.old_name }}"
       state: absent
-      
+    ignore_errors: yes
     loop: "{{ lookup('dict', users) }}"
     
   - name: delete old home dirs
     file: "/home/{{ item.value.old_name }}"
       state: deleted
+    ignore_errors: yes
     loop: "{{ lookup('dict', users) }}"
 
   - name: delete new home dirs
     file: "/home/{{ item.value.new_name }}"
       state: deleted
+    ignore_errors: yes
     loop: "{{ lookup('dict', users) }}"
   
   - name: Create old Users
     user:
       name: "{{ item.value.old_name }}"
       state: present
-      
+    ignore_errors: yes
     loop: "{{ lookup('dict', users) }}"
     
     
