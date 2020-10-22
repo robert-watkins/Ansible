@@ -40,7 +40,7 @@
       admins: something? 
     
   - name: Rename Users
-      shell: usermod -l {{ item.value.new_name }} {{ item.value.old_name }}
+      shell: usermod -l "{{ item.value.new_name }}" "{{ item.value.old_name }}"
     loop: "{{ lookup('dict', users) }}"
     
   - name: Rename Home Folder
