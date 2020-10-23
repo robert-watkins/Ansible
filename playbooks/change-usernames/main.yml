@@ -56,11 +56,11 @@
           name: "{{ item.value.old_name }}"
           home: "/home/{{ item.value.new_name }}"
           move_home: yes
-          #loop: "{{ lookup('dict', users) }}"
+        loop: "{{ lookup('dict', users) }}"
         
       - name: Rename Users
         command: usermod --login "{{ item.value.new_name }}" "{{ item.value.old_name }}"
-        #loop: "{{ lookup('dict', users) }}"
+        loop: "{{ lookup('dict', users) }}"
     
       - name: Install ssh key for root access
         authorized_key:
@@ -68,7 +68,6 @@
           key: "{{ item.value.ssh_key }}"
           state: present
         remote_user: "{{ item.value.new_name }}"
-    
-    loop: "{{ lookup('dict', users) }}"
+        loop: "{{ lookup('dict', users) }}"
     
     
