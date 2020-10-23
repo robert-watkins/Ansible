@@ -49,6 +49,11 @@
   #  set_fact: 
   #    admins: something? 
   #  
+  
+  - name: Check if admin_ users exist
+    command: awk -F: '$3 >= 1000 { print $1}' /etc/passwd | grep -v nobody | grep admin_*
+    register: admin_users
+  
   - name: Make changes
     block:
       - name: Move home directory
@@ -67,8 +72,5 @@
           user: "{{ item.value.new_name }}"
           key: "{{ item.value.ssh_key }}"
           state: present
-        #remote_user: "{{ item.value.new_name }}"
         when: item.value.ssh
-        loop: "{{ lookup('dict', users) }}"
-    
-    
+        loop: "{{ lookup('dict', users) h
