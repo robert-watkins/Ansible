@@ -55,9 +55,9 @@
   #    admins: something? 
   #  
   
-  - name: Check if admin_ users exist
-    command: "awk -F: '$3 >= 1000 { print $1}' /etc/passwd | grep -v nobody | grep admin_ | sed -z 's/\n/,/g'"
-    register: admin_users
+  #- name: Check if admin_ users exist
+  #  command: "awk -F: '$3 >= 1000 { print $1}' /etc/passwd | grep -v nobody | grep admin_ | sed -z 's/\n/,/g'"
+  #  register: admin_users
     
   - name: Set rename var
     debug:
