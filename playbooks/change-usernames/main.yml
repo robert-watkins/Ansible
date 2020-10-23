@@ -56,7 +56,7 @@
   #  
   
   - name: Check if admin_ users exist
-    shell: awk -F: '$3 >= 1000 { print $1}' /etc/passwd | grep -v nobody | grep admin_
+    shell: "awk -F: '$3 >= 1000 { print $1}' /etc/passwd | grep -v nobody | grep admin_"
     register: admin_users
     
   - name: Set rename var
