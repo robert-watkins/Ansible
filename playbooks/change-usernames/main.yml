@@ -61,8 +61,8 @@
     
   - name: Set rename var
     debug:
-      msg: '{{ item.value }}'
-    loop: {{ admin_users.result }}
+      msg: "{{ item.value }}"
+    loop: "{{ admin_users.result }}"
     
   
   - name: Make changes
