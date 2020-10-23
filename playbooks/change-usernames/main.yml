@@ -62,7 +62,8 @@
   - name: Set rename var
     debug:
       msg: "{{ item }}"
-    with_lines: "awk -F: '$3 >= 1000 { print $1}' /etc/passwd | grep -v nobody | grep admin_ "
+    with_lines: ls /home/
+    #with_lines: "awk -F: '$3 >= 1000 { print $1}' /etc/passwd | grep -v nobody | grep admin_ "
     
   
   - name: Make changes
