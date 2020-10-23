@@ -5,30 +5,35 @@
   vars: 
     users: 
       robert:
+        rename: no
         old_name: admin_rwatkins
         new_name: rwatkins
         ssh: true
         ssh_key: # ansible test key
         
       kraj:
+        rename: no
         old_name: admin_kraj
         new_name: kraj
         ssh: true
         ssh_key: # ansible test key
         
       davis:  
+        rename: no
         old_name: admin_davis
         new_name: davis
         ssh: true
         ssh_key: # ansible test key
         
       kevin:  
+        rename: no
         old_name: admin_kevin
         new_name: kevin
         ssh: false
         ssh_key: # ansible test key
       
       jackie:  
+        rename: no
         old_name: admin_jackie
         new_name: jackie
         ssh: false
@@ -53,6 +58,12 @@
   - name: Check if admin_ users exist
     command: awk -F: '$3 >= 1000 { print $1}' /etc/passwd | grep -v nobody | grep admin_*
     register: admin_users
+    
+  - name: Set rename var
+    debug:
+      msg: '{{ item.value }}'
+    loop: admin_users
+    
   
   - name: Make changes
     block:
@@ -74,3 +85,5 @@
           state: present
         when: item.value.ssh
         loop: "{{ lookup('dict', users) h
+    #when:
+    
