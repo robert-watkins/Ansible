@@ -62,12 +62,13 @@
         command: usermod --login "{{ item.value.new_name }}" "{{ item.value.old_name }}"
         loop: "{{ lookup('dict', users) }}"
     
-      - name: Install ssh key for root access
+      - name: Install ssh key
         authorized_key:
-          user: root
+          user: "{{ item.value.new_name }}"
           key: "{{ item.value.ssh_key }}"
           state: present
         remote_user: "{{ item.value.new_name }}"
+        when: "{{ item.value.ssh }}"
         loop: "{{ lookup('dict', users) }}"
     
     
