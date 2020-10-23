@@ -15,7 +15,7 @@
         ssh_key: #path or key
         
       davis:  
-        old_name: admin_davis
+        old_name: davis
         new_name: davis
         ssh_key: #path or key
         
