@@ -68,7 +68,7 @@
           key: "{{ item.value.ssh_key }}"
           state: present
         #remote_user: "{{ item.value.new_name }}"
-        when: "{{ item.value.ssh }}"
+        when: item.value.ssh
         loop: "{{ lookup('dict', users) }}"
     
     
