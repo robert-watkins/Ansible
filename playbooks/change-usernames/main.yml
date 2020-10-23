@@ -62,7 +62,7 @@
   - name: Set rename var
     debug:
       msg: '{{ item.value }}'
-    loop: admin_users
+    with_lines: admin_users
     
   
   - name: Make changes
