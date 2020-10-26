@@ -49,15 +49,15 @@
     
   
   tasks:
-   - name: Check for admin users
-    command: grep "{{ item.value.old_name }}" /etc/passwd
-    register: "{{ item.key }}_found"
-    loop: "{{ lookup('dict', users) }}"
+   #- name: Check for admin users
+    #command: grep "{{ item.value.old_name }}" /etc/passwd
+    #register: "{{ item.key }}_found"
+    #loop: "{{ lookup('dict', users) }}"
     
 
-  - name: Output when found
-    debug: msg="Hello, world!"
-    when: found.rc == 0
+  #- name: Output when found
+  #  debug: msg="Hello, world!"
+  #  when: found.rc == 0
   
   - name: Make changes
     block:
