@@ -29,7 +29,7 @@
         new_name: jackie
         ssh_key: #path or key
       
-    
+     
   
   tasks:
   - name: Remove all caps if present
