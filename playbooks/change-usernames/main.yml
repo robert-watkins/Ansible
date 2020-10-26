@@ -1,4 +1,4 @@
----
+' ---
 - name: Update Usernames to All Caps convention
   hosts: all
   become: yes
@@ -66,12 +66,17 @@
   #  command: "awk -F: '$3 >= 1000 { print $1}' /etc/passwd | grep -v nobody | grep admin_ | sed -z 's/\n/,/g'"
   #  register: admin_users
     
-  - name: Set rename var
-    debug:
-      msg: "{{ item }}"
-    with_lines: ls /home
-    #with_lines: "awk -F: '$3 >= 1000 { print $1}' /etc/passwd | grep -v nobody | grep admin_ "
-    
+   - name: Check for admin users
+    command: grep "{{ item.value.old_name }}" /etc/passwd
+    register: found
+    check_mode: no
+    ignore_errors: yes
+    changed_when: no
+    loop: "{{ lookup('dict', users) }}"
+
+  - name: Output when found
+    debug: msg="Hello, world!"
+    when: found.rc == 0
   
   - name: Make changes
     block:
