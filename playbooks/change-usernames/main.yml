@@ -51,11 +51,9 @@
   tasks:
    - name: Check for admin users
     command: grep "{{ item.value.old_name }}" /etc/passwd
-    register: found
-    check_mode: no
-    ignore_errors: yes
-    changed_when: no
+    register: {{ item.key }}_found
     loop: "{{ lookup('dict', users) }}"
+    
 
   - name: Output when found
     debug: msg="Hello, world!"
