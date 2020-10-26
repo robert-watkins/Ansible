@@ -49,7 +49,6 @@
     
   
   tasks:
-  
    - name: Check for admin users
     command: grep "{{ item.value.old_name }}" /etc/passwd
     register: found
