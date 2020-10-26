@@ -1,4 +1,4 @@
-' ---
+---
 - name: Update Usernames to All Caps convention
   hosts: all
   become: yes
