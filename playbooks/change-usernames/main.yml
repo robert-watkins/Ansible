@@ -27,7 +27,7 @@
         
       kevin:  
         rename: no
-        old_name: admin_keavin
+        old_name: admin_kevin
         new_name: kevin
         ssh: false
         ssh_key: # ansible test key
