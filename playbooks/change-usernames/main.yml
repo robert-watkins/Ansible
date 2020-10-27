@@ -74,7 +74,7 @@
           user: "{{ item.value.new_name }}"
           key: "{{ item.value.ssh_key }}"
           state: present
-        when: item.value.ssh 
+        when: item.value.ssh | bool
         loop: "{{ lookup('dict', users) }}"
     ignore_errors: yes
     
