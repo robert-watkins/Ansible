@@ -61,7 +61,7 @@
           home: "/home/{{ item.value.new_name }}"
           move_home: yes
         loop: "{{ lookup('dict', users) }}"
-        when: "item.value.old_name" in admins.stdout_lines
+        when: item.value.old_name in admins.stdout_lines
         
       - name: Rename Users
         command: usermod --login "{{ item.value.new_name }}" "{{ item.value.old_name }}"
