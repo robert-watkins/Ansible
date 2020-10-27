@@ -55,6 +55,9 @@
     command: "echo $(awk -F: '$3 >= 1000 {print $1}' /etc/passwd) | sed 's/ /,/g' | sed 's/nobody,//g'"
     register: admins
     changed_when: admins.rc == 2
+  
+  - debug:
+      msg: admins.stdout
     
     
   - name: Make changes
