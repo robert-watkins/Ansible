@@ -49,6 +49,10 @@
     
   
   tasks:
+  - name: Collect list of existing users
+    command: awk -F: '$3 >= 1000 { print $1}' /etc/passwd | grep -v nobody | grep admin_ | sed ':a;N;$!ba;s/\n/,/g'
+    register: admins
+  
   - name: Make changes
     block:
       - name: Move home directory
@@ -57,10 +61,12 @@
           home: "/home/{{ item.value.new_name }}"
           move_home: yes
         loop: "{{ lookup('dict', users) }}"
+        when: "{{ item.value.old_name }}" in admins.stdout_lines
         
       - name: Rename Users
         command: usermod --login "{{ item.value.new_name }}" "{{ item.value.old_name }}"
         loop: "{{ lookup('dict', users) }}"
+        when: "{{ item.value.old_name }}" in admins.stdout_lines
     
       - name: Install ssh key
         authorized_key:
@@ -70,4 +76,4 @@
         when: item.value.ssh
         loop: "{{ lookup('dict', users) }}"
     ignore_errors: yes
-    #when:
+    
