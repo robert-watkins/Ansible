@@ -57,7 +57,7 @@
     changed_when: admins.rc == 2
   
   - debug:
-      msg: "admins.stdout"
+      msg: "{{ admins.stdout }}"
     
     
   - name: Make changes
