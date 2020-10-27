@@ -38,16 +38,6 @@
         new_name: jackie
         ssh: false
         ssh_key: # ansible test key
-      
-      blue:
-        rename: no
-        old_name: orange
-        new_name: blue
-        ssh: true
-        ssh_key: # ansible test key
-      
-      
-    
   
   tasks:
   - name: Collect list of existing users
@@ -76,5 +66,4 @@
           state: present
         when: item.value.ssh | bool and item.value.old_name in admins.stdout
         loop: "{{ lookup('dict', users) }}"
-    ignore_errors: yes
     
