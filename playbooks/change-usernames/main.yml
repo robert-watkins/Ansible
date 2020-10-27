@@ -64,19 +64,19 @@
           home: "/home/{{ item.value.new_name }}"
           move_home: yes
         loop: "{{ lookup('dict', users) }}"
-        when: item.value.old_name in admins.stdout_lines and item.value.rename
+        when: item.value.old_name in admins.stdout_lines #and item.value.rename
         
       - name: Rename Users
         command: usermod --login "{{ item.value.new_name }}" "{{ item.value.old_name }}"
         loop: "{{ lookup('dict', users) }}"
-        when: item.value.old_name in admins.stdout_lines and item.value.rename 
+        when: item.value.old_name in admins.stdout_lines #and item.value.rename 
     
       - name: Install ssh key
         authorized_key:
           user: "{{ item.value.new_name }}"
           key: "{{ item.value.ssh_key }}"
           state: present
-        when: item.value.ssh
+        when: item.value.ssh and item.value.old_name in admins.stdout_lines
         loop: "{{ lookup('dict', users) }}"
     ignore_errors: yes
     
