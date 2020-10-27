@@ -54,7 +54,8 @@
     command: "awk -F: '$3 >= 1000 { print $1}' /etc/passwd | grep -v nobody | grep admin_ | sed ':a;N;$!ba;s/\n/,/g'"
     register: admins
     ignore_errors: yes
-  
+    
+    
   - name: Make changes
     block:
       - name: Move home directory
@@ -68,7 +69,7 @@
       - name: Rename Users
         command: usermod --login "{{ item.value.new_name }}" "{{ item.value.old_name }}"
         loop: "{{ lookup('dict', users) }}"
-        when: item.value.old_name in admins.stdout_lines
+        when: item.value.old_name in admins.stdout_lines and item.value.rename | bool
     
       - name: Install ssh key
         authorized_key:
