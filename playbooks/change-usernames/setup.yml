@@ -24,10 +24,10 @@
         new_name: kevin
         ssh_key: #path or key
       
-      jackie:  
-        old_name: admin_jackie
-        new_name: jackie
-        ssh_key: #path or key
+      #jackie:  
+      #  old_name: admin_jackie
+      #  new_name: jackie
+       # ssh_key: #path or key
       
   
   tasks:
