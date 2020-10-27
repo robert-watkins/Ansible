@@ -15,7 +15,7 @@
         ssh_key: #path or key
         
       davis:  
-        old_name: davis
+        old_name: admin_davis
         new_name: davis
         ssh_key: #path or key
         
@@ -24,10 +24,10 @@
         new_name: kevin
         ssh_key: #path or key
       
-      #jackie:  
-      #  old_name: admin_jackie
-      #  new_name: jackie
-       # ssh_key: #path or key
+      jackie:  
+        old_name: admin_jackie
+        new_name: jackie
+        ssh_key: #path or key
       
   
   tasks:
